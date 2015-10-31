@@ -3,7 +3,7 @@
     $.fn.jLetters = function() {
         var args = {},
             text;
-        /*
+        /*INITIALISATION*
             - initialise jLetters
             - set args & text
             @args: list of arguments passed by user

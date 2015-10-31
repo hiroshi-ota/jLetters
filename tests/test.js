@@ -1,7 +1,8 @@
 module('Configuration');
 
-test('is jLetters a function of jQuery?', function () {
-    ok(typeof $.fn.jLetters === 'function');
+test('initialisation', function () {
+    equal(typeof $.fn.jLetters, 'function', 'jLetters is a part of jQuery');
+    equal(typeof $(this).jLetters().data('jLetters'), 'object', 'api is there');
 })
 
 module('jLetters: Errors');

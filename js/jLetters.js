@@ -1,10 +1,26 @@
 (function($){
     var jLetters = function(element, options){
-        var elem = $(element);
-        var obj = this;
-        var settings = $.extend({
-            param: 'default'
-        }, options || {});
+        /*INITIALISATION*
+        //         - initialise jLetters
+        //         - set params & element
+        //         @element: element on which jLetters is working
+        //         @options: list of settings passed by user
+        //     */
+        var elem = $(element),
+            obj = this,
+            params = $.extend({
+                animationDuration: 500
+            }, options || {});
+
+        this.getParams = function(){
+            return params;
+        }
+        //main animate function
+        var Animate = function(elem){
+            var string = elem.text();
+            $('body').append(params.before + string + params.after);
+        }
+        Animate(elem);
     }
 
     $.fn.jLetters = function(options) {

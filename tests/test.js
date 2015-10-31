@@ -1,5 +1,7 @@
-module('jLetters: Configuration');
+module('Configuration');
 
-test('is jLetters a function', function () {
+test('is jLetters a function of jQuery?', function () {
     ok(typeof $.fn.jLetters === 'function');
 })
+
+module('jLetters: Errors');

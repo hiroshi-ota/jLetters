@@ -8,32 +8,13 @@
 		//     */
 		var elem = $(element),
 			obj = this,
-<<<<<<< HEAD
+			text = $(elem).text(),
 			params = $.extend({
-				animationDuration: 500
+				precision: '',
+				animationDuration: 50,
+				animationSpeed: 1000,
+				separate: ' '
 			}, options || {});
-
-		//main animate function
-		var Animate = function(elem) {
-			var string = elem.text();
-			$(elem).text('');
-			var text = '';
-			for (var i = 0; i < string.length; i++) {
-				(function(i) {
-					setTimeout(
-						function() {
-							text += string.charAt(i);
-							$(elem).text(text);
-						}, params.animationDuration + (params.animationDuration * i))
-				}(i))
-=======
-			text = $(elem).text();
-		params = $.extend({
-			precision: '',
-			animationDuration: 50,
-			animationSpeed: 1000,
-			separate: ' '
-		}, options || {});
 
 		//Auxiliary functions
 		var splitWords = function() {
@@ -69,7 +50,7 @@
 
 		var animate = function(child, index) {
 			setTimeout(
-				function(){
+				function() {
 					$(child).animate({
 						opacity: 1
 					}, params.animationSpeed)
@@ -83,12 +64,13 @@
 				toSpan(splitWords()) : toSpan(splitChars());
 
 			var children = $(elem).children();
-			$(children).each(function(){
-				$(this).css({opacity: 0});
+			$(children).each(function() {
+				$(this).css({
+					opacity: 0
+				});
 			})
 			for (var i = 0; i < children.length; i++) {
 				animate(children[i], i)
->>>>>>> refs/remotes/origin/Rebuild
 			}
 		}
 		show();

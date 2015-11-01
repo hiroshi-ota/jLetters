@@ -15,14 +15,14 @@
 
 <body>
     <div id="testDiv">Działa</div>
+    <div>Działa</div>
     <script>
-        var test = document.getElementById('testDiv');
-        $(test).jLetters({
-            before: 'przed ',
-            after: ' po'
-        });
-        var o = $(test).data('jLetters');
-        console.log(o.getParams());
+        $('#testDiv').jLetters();
+        // var test = document.getElementById('testDiv');
+        // $(test).jLetters({
+        //     before: 'przed ',
+        //     after: ' po'
+        // });
     </script>
 </body>
 

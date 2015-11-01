@@ -9,51 +9,69 @@
 		var elem = $(element),
 			obj = this,
 			text = $(elem).text();
-			params = $.extend({
-				animationDuration: 500
-			}, options || {});
+		params = $.extend({
+			precision: '',
+			animationDuration: 50,
+			animationSpeed: 1000,
+			separate: ' '
+		}, options || {});
 
 		//Auxiliary functions
-		var splitWords = function (){
+		var splitWords = function() {
 			var words = [];
 			words.push(text.split(' '));
 			return words[0];
 		}
 
-		var splitChars = function (word){
+		var splitChars = function(word) {
 			var char = [];
-			if(typeof word !== 'string'){
+			if (typeof word !== 'string') {
 				word = text;
 			}
 			char.push(word.split(''));
 			return char[0];
 		}
 
-		var toSpan = function (array){
+		var toSpan = function(array) {
 			var plain = '';
-			for(var elem in array){
-				plain += '<span>' + array[elem] + '</span> ';
+			for (var ae in array) {
+				plain += '<span>' + array[ae] + '</span>';
 			}
-			return plain;
+			$(elem)[0].innerHTML = plain;
 		}
 
-		//Main animate function
-		var animate = function() {
-			$(elem).text('');
-			for (var i = 0; i < text.length; i++) {
-				(function(i) {
-					setTimeout(
-						function() {
-							var char = text.charAt(i);
-							$(elem).append(char).animate({
-								opacity: 1
-							}, 1000);
-						}, params.animationDuration + (params.animationDuration * i))
-				}(i))
+		var toSpanArray = function(array) {
+			var spans = [];
+			for (var elem in array) {
+				spans.push('<span>' + array[elem] + '</span>');
+			}
+			return spans;
+		}
+
+		var animate = function(child, index) {
+			setTimeout(
+				function(){
+					$(child).animate({
+						opacity: 1
+					}, params.animationSpeed)
+				}, params.animationDuration + (params.animationDuration * index)
+			)
+		}
+
+		//Show results
+		var show = function() {
+			params.precision === 'words' ?
+				toSpan(splitWords()) : toSpan(splitChars());
+
+			var children = $(elem).children();
+			$(children).each(function(){
+				$(this).css({opacity: 0});
+			})
+			for (var i = 0; i < children.length; i++) {
+				animate(children[i], i)
 			}
 		}
-		animate(elem);
-		toSpan(splitWords());
+		show();
 	}
 
 	$.fn.jLetters = function(options) {
@@ -68,10 +86,10 @@
 
 	}
 
-    //Exception control:
-	function ExceptionLog(message){
-	    this.name = 'jLetters Error';
-	    this.message = message;
+	//Exception control:
+	function ExceptionLog(message) {
+		this.name = 'jLetters Error';
+		this.message = message;
 	}
 	ExceptionLog.prototype = Error.prototype;
 

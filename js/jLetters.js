@@ -8,26 +8,52 @@
 		//     */
 		var elem = $(element),
 			obj = this,
+			text = $(elem).text();
 			params = $.extend({
 				animationDuration: 500
 			}, options || {});
 
-		//main animate function
-		var Animate = function(elem) {
-			var string = elem.text();
+		//Auxiliary functions
+		var splitWords = function (){
+			var words = [];
+			words.push(text.split(' '));
+			return words[0];
+		}
+
+		var splitChars = function (word){
+			var char = [];
+			if(typeof word !== 'string'){
+				word = text;
+			}
+			char.push(word.split(''));
+			return char[0];
+		}
+
+		var toSpan = function (array){
+			var plain = '';
+			for(var elem in array){
+				plain += '<span>' + array[elem] + '</span> ';
+			}
+			return plain;
+		}
+
+		//Main animate function
+		var animate = function() {
 			$(elem).text('');
-            var text = '';
-			for (var i = 0; i < string.length; i++) {
+			for (var i = 0; i < text.length; i++) {
 				(function(i) {
 					setTimeout(
 						function() {
-                            text += string.charAt(i);
-							$(elem).text(text);
+							var char = text.charAt(i);
+							$(elem).append(char).animate({
+								opacity: 1
+							}, 1000);
 						}, params.animationDuration + (params.animationDuration * i))
 				}(i))
 			}
 		}
-		Animate(elem);
+		animate(elem);
+		toSpan(splitWords());
 	}
 
 	$.fn.jLetters = function(options) {
@@ -48,5 +74,5 @@
 	    this.message = message;
 	}
 	ExceptionLog.prototype = Error.prototype;
-    
+
 }(jQuery))

@@ -8,6 +8,7 @@
 		//     */
 		var elem = $(element),
 			obj = this,
+<<<<<<< HEAD
 			params = $.extend({
 				animationDuration: 500
 			}, options || {});
@@ -25,9 +26,72 @@
 							$(elem).text(text);
 						}, params.animationDuration + (params.animationDuration * i))
 				}(i))
+=======
+			text = $(elem).text();
+		params = $.extend({
+			precision: '',
+			animationDuration: 50,
+			animationSpeed: 1000,
+			separate: ' '
+		}, options || {});
+
+		//Auxiliary functions
+		var splitWords = function() {
+			var words = [];
+			words.push(text.split(' '));
+			return words[0];
+		}
+
+		var splitChars = function(word) {
+			var char = [];
+			if (typeof word !== 'string') {
+				word = text;
+			}
+			char.push(word.split(''));
+			return char[0];
+		}
+
+		var toSpan = function(array) {
+			var plain = '';
+			for (var ae in array) {
+				plain += '<span>' + array[ae] + '</span>';
+			}
+			$(elem)[0].innerHTML = plain;
+		}
+
+		var toSpanArray = function(array) {
+			var spans = [];
+			for (var elem in array) {
+				spans.push('<span>' + array[elem] + '</span>');
+			}
+			return spans;
+		}
+
+		var animate = function(child, index) {
+			setTimeout(
+				function(){
+					$(child).animate({
+						opacity: 1
+					}, params.animationSpeed)
+				}, params.animationDuration + (params.animationDuration * index)
+			)
+		}
+
+		//Show results
+		var show = function() {
+			params.precision === 'words' ?
+				toSpan(splitWords()) : toSpan(splitChars());
+
+			var children = $(elem).children();
+			$(children).each(function(){
+				$(this).css({opacity: 0});
+			})
+			for (var i = 0; i < children.length; i++) {
+				animate(children[i], i)
+>>>>>>> refs/remotes/origin/Rebuild
 			}
 		}
-		Animate(elem);
+		show();
 	}
 
 	$.fn.jLetters = function(options) {

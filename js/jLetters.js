@@ -16,12 +16,12 @@
 		var Animate = function(elem) {
 			var string = elem.text();
 			$(elem).text('');
-            var text = '';
+			var text = '';
 			for (var i = 0; i < string.length; i++) {
 				(function(i) {
 					setTimeout(
 						function() {
-                            text += string.charAt(i);
+							text += string.charAt(i);
 							$(elem).text(text);
 						}, params.animationDuration + (params.animationDuration * i))
 				}(i))
@@ -42,11 +42,11 @@
 
 	}
 
-    //Exception control:
-	function ExceptionLog(message){
-	    this.name = 'jLetters Error';
-	    this.message = message;
+	//Exception control:
+	function ExceptionLog(message) {
+		this.name = 'jLetters Error';
+		this.message = message;
 	}
 	ExceptionLog.prototype = Error.prototype;
-    
+
 }(jQuery))
